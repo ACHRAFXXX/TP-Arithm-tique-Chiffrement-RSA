@@ -1,4 +1,3 @@
-[app-rsa.py](https://github.com/user-attachments/files/34504195/app-rsa.py)
 import streamlit as st
 
 st.set_page_config(page_title="TP Arithmétique & RSA", page_icon="🔐", layout="wide")
@@ -56,24 +55,18 @@ if st.button("🚀 Lancer le chiffrement et le déchiffrement RSA"):
         n = p * q
         phi = (p - 1) * (q - 1)
         d = inverse_mod(e, phi)
-        
-        if d is None:
+         if d is None:
             st.error(f"❌ Erreur : e ({e}) et φ ({phi}) ne sont pas premiers entre eux. Pas d'inverse modulaire.")
         else:
             c = pow(m, e, n)
             m2 = pow(c, d, n)
-            
             st.success("✅ Opération réussie !")
-            
-        
             res1, res2, res3, res4 = st.columns(4)
             res1.metric("Module n", n)
             res2.metric("Indicatrice φ(n)", phi)
             res3.metric("Clé privée d", d)
             res4.metric("Message chiffré c", c)
-            
             st.markdown(f"**Message déchiffré m' :** `{m2}`")
-            
             if m == m2:
                 st.success("🎯 Succès : m' = m (Le message a été correctement déchiffré)")
             else:
